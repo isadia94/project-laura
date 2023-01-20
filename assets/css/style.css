@@ -1,0 +1,167 @@
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/Poppins/Poppins-Regular.ttf");
+  src: url("../fonts/Poppins/Poppins-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Magenda";
+  src: url("../fonts/magenda/Magenda.ttf");
+  src: url("../fonts/magenda/Magenda.ttf") format("truetype");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.login {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+}
+
+.welcome {
+  font-family: "Magenda";
+  font-weight: 500;
+  text-align: center;
+}
+
+.header_text {
+  text-align: center;
+  color: rgb(111, 111, 111);
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.splash {
+  text-align: center;
+  color: rgb(111, 111, 111);
+  font-size: 13px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+label {
+  font-weight: bold;
+}
+
+.form_input {
+  padding: 10px 10px;
+  outline: none;
+  border: 1px solid gray;
+  width: 240px;
+}
+
+.register {
+  width: 100%;
+}
+
+.form_group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.form_section_left {
+  width: 500px;
+  margin: 0 auto;
+}
+.form_section_right {
+  height: 100vh;
+  width: 50%;
+  background-image: url("../img/register.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.align_twins {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  width: 100%;
+  outline: none;
+  padding: 10px;
+  background-color: green;
+  color: white;
+  border: none;
+  font-family: "Poppins";
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.login_prompt {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.bottom {
+  margin-right: 5px;
+}
+
+.container {
+  margin: 40px 30px;
+}
+
+.intro-text {
+  font-weight: 900;
+  font-size: 40px;
+  font-family: "Magenda";
+}
+
+section {
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+section h2 {
+  font-family: "Magenda";
+}
+.cat-center {
+  font-weight: 800;
+  text-decoration: underline;
+  font-family: "Magenda";
+  margin-top: 30px;
+}
+
+.card-container {
+  margin-top: 18px;
+
+  height: max-content;
+  display: flex;
+  justify-content: space-between;
+}
+.card {
+  width: 220px;
+}
+.card-img {
+  background-color: yellow;
+  width: 100%;
+  height: 220px;
+}
+
+.card-text {
+  text-align: center;
+  margin-top: 15px;
+}
+.card-text h3 {
+  font-family: "Magenda";
+}
+.card-btn {
+  margin-top: 5px;
+  width: 60%;
+  padding: 5px;
+}
+
+.proceed {
+  width: 200px;
+}
