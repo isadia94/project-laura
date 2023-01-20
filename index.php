@@ -4,7 +4,7 @@
     
     <div class="form_section_left">
 
-        <h1>JKUAT Student Voting System</h1>
+        <h1 class="welcome">JKUAT Student Voting System</h1>
         <p class="splash">To register as a new voter kindly</p>
 
       
@@ -20,7 +20,12 @@
         </button>
       
     </div>
-    <div class="form_section_right"></div>
+    <div class="form_section_intro">
+    <video preload="auto" loop autoplay muted>
+                    <source src='assets/videos/typing.mp4' type='video/mp4' />
+                    
+                </video>
+    </div>
   </body>
   <script type="text/javascript">
     function navLogin(){
