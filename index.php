@@ -8,7 +8,7 @@
         <p class="splash">To register as a new voter kindly</p>
 
       
-        <button class="buttonRegister" onclick="navLogin()">
+        <button class="buttonRegister" onclick="navRegister()">
           Sign Up
         </button>
 
