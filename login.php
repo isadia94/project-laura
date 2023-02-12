@@ -1,7 +1,7 @@
 <?php require "includes/header.php";?>
 
   <body class="login">
-    <div class="form_section_right"></div>
+    <div class="form_section_right2"></div>
     <div class="form_section_left">
       <form action="<?php echo APPURL;?>/auth/login.php" method="POST">
         <h1 class="welcome">Welcome back</h1>

@@ -14,6 +14,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
 
 body {
   font-family: "Poppins", sans-serif;
@@ -75,10 +80,18 @@ label {
 .form_section_right {
   height: 100vh;
   width: 50%;
-  background-image: url("../img/register.jpg");
+  background-image: url("../img/underwater/img3.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+.form_section_right2 {
+  height: 100vh;
+  width: 50%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("../img/underwater/img4.png");
 }
 
 .form_section_intro {
@@ -110,6 +123,10 @@ button {
   cursor: pointer;
 }
 
+.gray {
+  background-color: gray;
+}
+
 .login_prompt {
   display: flex;
   align-items: center;
@@ -133,6 +150,7 @@ button {
 section {
   margin-top: 30px;
   margin-bottom: 50px;
+  width: 100%;
 }
 
 section h2 {
@@ -147,10 +165,11 @@ section h2 {
 
 .card-container {
   margin-top: 18px;
-
+  margin-bottom: 30px;
   height: max-content;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
 }
 .card {
   width: 220px;
@@ -176,4 +195,112 @@ section h2 {
 
 .proceed {
   width: 200px;
+}
+
+.admin-body {
+  position: relative;
+  padding: 50px 50px;
+  background-image: url("../img/underwater/img5.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.white {
+  color: white;
+}
+
+.flex-admin {
+  display: grid;
+  grid-template-columns: repeat(3, 350px);
+  gap: 20px;
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.admin-card {
+  position: relative;
+  width: 350px;
+  height: 170px;
+  padding: 20px 20px;
+  border: 1px solid rgb(211, 211, 211);
+  background: white;
+}
+
+.admin-card h4 {
+  font-family: "Magenda";
+  font-size: 24px;
+}
+
+.card-icon-i {
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+i {
+  color: rgb(4, 200, 4);
+}
+
+.admin-card p {
+  font-size: 13px;
+  margin-top: 20px;
+  color: gray;
+}
+
+.line {
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  left: 0;
+  bottom: 40px;
+  background-color: rgb(171, 169, 169);
+}
+
+.admin-link {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  font-size: 12px;
+}
+
+.admin-box {
+  display: flex;
+  align-items: center;
+}
+
+.candidate-body {
+  width: 100vw;
+  padding-top: 50px;
+}
+
+table {
+  width: 70%;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+th {
+  text-align: left;
+  height: 30px;
+  color: white;
+  background-color: green;
+}
+
+td {
+  height: 50px;
+  vertical-align: bottom;
+}
+
+td,
+th {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+  background-color: #a40000;
+}
+
+.candidate-body > h1 {
+  text-align: center;
+  margin-bottom: 10px;
 }

@@ -10,24 +10,33 @@ if(!isset($_SESSION['username'])) {
 
 
 // Check if user has already voted
-$username = $_SESSION['username'];
-$check_stmt = $conn->prepare("SELECT * FROM votes WHERE username = :username");
-$check_stmt->execute(['username' => $username]);
+$voters_id = $_SESSION['username'];
+$check_stmt = $conn->prepare("SELECT * FROM votes WHERE voters_id = :voters_id");
+$check_stmt->execute(['voters_id' => $voters_id]);
 
 if($check_stmt->rowCount() > 0) {
     echo "You have already voted.";
     exit();
 }
 
-// Handle candidate selection
-if(isset($_POST['candidate']) && isset($_POST['category'])) {
-    $candidate = $_POST['candidate'];
-    $category = $_POST['category'];
-    $vote_stmt = $pdo->prepare("INSERT INTO votes (username, candidate, category) VALUES (:username, :candidate, :category)");
-    $vote_stmt->execute(['username' => $username, 'candidate' => $candidate, 'category' => $category]);
-    echo "Your vote for $candidate in the $category category has been recorded.";
-    exit();
+else{
+      // The user has not voted yet
+    // Get the list of categories
+    $stmt = $conn->prepare('SELECT * FROM categories');
+    $stmt->execute();
+    $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
+// // Handle candidate selection
+// if(isset($_POST['candidate']) && isset($_POST['category'])) {
+//     $candidate = $_POST['candidate'];
+//     $category = $_POST['category'];
+//     $vote_stmt = $conn->prepare("INSERT INTO votes (username, candidate, category) VALUES (:username, :candidate, :category)");
+//     $vote_stmt->execute(['username' => $username, 'candidate' => $candidate, 'category' => $category]);
+//     echo "<script>alert('Your vote for $candidate in the $category category has been recorded.')</script>";
+//     exit();
+// }
 
 ?>
 
@@ -37,248 +46,80 @@ if(isset($_POST['candidate']) && isset($_POST['category'])) {
     <div>
         <h2 class="cat-center">Categories</h2>
     <section>
-        <h1>President</h1>
-        <div>
-            <form action="vote.php" method="POST" class="card-container">
+        <?php
+
+        foreach ($categories as $category) {
+            echo '<h1>' . $category['name'] . '</h1>';
+         
+            $stmt = $conn->prepare('SELECT * FROM candidates WHERE category_id = :category_id');
+            $stmt->execute([':category_id' => $category['id']]);
+            $candidates = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+     
+            ?>
+    
+            <div>
+            <form action="vote.php" method="post" class="card-container">
+                <?php
+            foreach ($candidates as $candidate) {
+                ?>
             <div class="card">
                 <div class="card-img"></div>
                 <div class="card-text">
-                    <h3>Cyrus Lee</h3>
-                    <p>Bcom</p>
+                    <h3><?php echo $candidate['name']?></h3>
+                    <p><?php echo $candidate['course']?></p>
                     <button class="card-btn" name="candidate" value="Cyrus Lee" onclick="disableButtons(this)">Select</button>
                     <input type="hidden" name="category" value="President">
                 </div>
             </div>
-            <div class="card">
-                <div class="card-img"></div>
-                <div class="card-text">
-                    <h3>Laura Amunga</h3>
-                    <p>BIT</p>
-                    <button class="card-btn" name="candidate" value="Laura Amunga" onclick="disableButtons(this)">Select</button>
-                    <input type="hidden" name="category" value="President">
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-img"></div>
-                <div class="card-text">
-                    <h3>James Charles</h3>
-                    <p>BBIT</p>
-                    <button class="card-btn" name="candidate" value="James Charles" onclick="disableButtons(this)">Select</button>
-                    <input type="hidden" name="category" value="President">
-                </div>
-            </div>
-           
-            <div class="card">
-                <div class="card-img"></div>
-                <div class="card-text">
-                    <h3>Kate Jenner</h3>
-                    <p>Health</p>
-                    <button class="card-btn" name="candidate" value="Kate Jenner" onclick="disableButtons(this)">Select</button>
-                    <input type="hidden" name="category" value="President">
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-img"></div>
-                <div class="card-text">
-                    <h3>Bruce Mckain</h3>
-                    <p>Pharmacy</p>
-                    <button class="card-btn" name="candidate" value="Bruce Mckain" onclick="disableButtons(this)">Select</button>
-                    <input type="hidden" name="category" value="President">
-                </div>
-            </div>
-            </form>
-        </div>
-    </section>
-    <section>
-        <h1>Academic Affairs</h1>
-        <div>
-            <form action="vote.php" method="POST" class="card-container">
-            <div class="card">
-                <div class="card-img"></div>
-                <div class="card-text">
-                    <h3>Sheila Wabukati</h3>
-                    <p>Bcom</p>
-                    <button class="card-btn" name="candidate" value="Sheila Wabukati" onclick="disableButtons(this)">Select</button>
-                    <input type="hidden" name="category" value="Academic Affairs">
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-img"></div>
-                <div class="card-text">
-                    <h3>Rubenson Kagame</h3>
-                    <p>BIT</p>
-                    <button class="card-btn" name="candidate" value="Rubenson Kagame" onclick="disableButtons(this)">Select</button>
-                    <input type="hidden" name="category" value="Academic Affairs">
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-img"></div>
-                <div class="card-text">
-                    <h3>Peter Wafula</h3>
-                    <p>BBIT</p>
-                    <button class="card-btn" name="candidate" value="Peter Wafula" onclick="disableButtons(this)">Select</button>
-                    <input type="hidden" name="category" value="Academic Affairs">
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-img"></div>
-                <div class="card-text">
-                    <h3>Faith Lois</h3>
-                    <p>Health</p>
-                    <button class="card-btn" name="candidate" value="Faith Lois" onclick="disableButtons(this)">Select</button>
-                    <input type="hidden" name="category" value="Academic Affairs">
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-img"></div>
-                <div class="card-text">
-                    <h3>Hope Lornah</h3>
-                    <p>Pharmacy</p>
-                    <button class="card-btn" name="candidate" value="Hope Lornah" onclick="disableButtons(this)">Select</button>
-                    <input type="hidden" name="category" value="Academic Affairs">
-                </div>
-            </div>
-            </form>
-        </div>
-    </section>
-    <section>
-        <h1>Sports & Entertainment</h1>
-        <div>
-        <form action="vote.php" method="POST" class="card-container">
-            <div class="card">
-            <div class="card-img">
-
-            </div>
-            <div class="card-text">
-                <h3>Paula Clarette</h3>
-                <p>Bcom</p>
-                <button class="card-btn" name="candidate" value="Paula Clarette" onclick="disableButtons(this)">Select</button>
-                    <input type="hidden" name="category" value="Sports & Entertainment">
-            </div>
-            </div>
-            <div class="card">
-            <div class="card-img">
-
-            </div>
-            <div class="card-text">
-                <h3>Jane Doe</h3>
-                <p>BIT</p>
-                <button class="card-btn" name="candidate" value="Jane Doe" onclick="disableButtons(this)">Select</button>
-                    <input type="hidden" name="category" value="Sports & Entertainment">
-            </div>
-            </div>
-            
-            <div class="card">
-            <div class="card-img">
-
-            </div>
-            <div class="card-text">
-                <h3>Jimmy Gathu</h3>
-                <p>BBIT</p>
-                <button class="card-btn" name="candidate" value="Jimmy Gathu" onclick="disableButtons(this)">Select</button>
-                    <input type="hidden" name="category" value="Sports & Entertainment">
-            </div>
-            </div>
-            
-            <div class="card">
-            <div class="card-img">
-
-            </div>
-            <div class="card-text">
-                <h3>Ema Paulson</h3>
-                <p>Health</p>
-                <button class="card-btn" name="candidate" value="Ema Paulson" onclick="disableButtons(this)">Select</button>
-                    <input type="hidden" name="category" value="Sports & Entertainment">
-            </div>
-            </div>
-            <div class="card">
-            <div class="card-img">
-
-            </div>
-            <div class="card-text">
-                <h3>Jean Joyce</h3>
-                <p>Pharmacy</p>
-                <button class="card-btn" name="candidate" value="Jean Joyce" onclick="disableButtons(this)">Select</button>
-                    <input type="hidden" name="category" value="Sports & Entertainment">
-            </div>
-            </div>
+            <?php }
+            ?>
         </form>
-        </div>
+            </div>
+
+            <?php }
+            ?>
+
+        
+
+        
+        
+    
+        
+      
     </section>
-    <section>
-        <h1>Finance</h1>
-        <div>
-        <form action="vote.php" method="POST" class="card-container">
-            <div class="card">
-            <div class="card-img">
-
-            </div>
-            <div class="card-text">
-                <h3>Eva Achieng</h3>
-                <p>Bcom</p>
-                <button class="card-btn" name="candidate" value="Eva Achieng" onclick="disableButtons(this)">Select</button>
-                    <input type="hidden" name="category" value="Finance">
-            </div>
-            </div>
-            <div class="card">
-            <div class="card-img">
-
-            </div>
-            <div class="card-text">
-                <h3>Sean Michaels</h3>
-                <p>BIT</p>
-                <button class="card-btn" name="candidate" value="Sean Michaels" onclick="disableButtons(this)">Select</button>
-                    <input type="hidden" name="category" value="Finance">
-            </div>
-            </div>
-            <div class="card">
-            <div class="card-img">
-
-            </div>
-            <div class="card-text">
-                <h3>Peter Kane</h3>
-                <p>BBIT</p>
-                <button class="card-btn" name="candidate" value="Peter Kane" onclick="disableButtons(this)">Select</button>
-                    <input type="hidden" name="category" value="Finance">
-            </div>
-            </div>
-            <div class="card">
-            <div class="card-img">
-
-            </div>
-            <div class="card-text">
-                <h3>Jim Beglin</h3>
-                <p>Health</p>
-                <button class="card-btn" name="candidate" value="Jim Beglin" onclick="disableButtons(this)">Select</button>
-                    <input type="hidden" name="category" value="Finance">
-            </div>
-            </div>
-            <div class="card">
-            <div class="card-img">
-
-            </div>
-            <div class="card-text">
-                <h3>John Doe</h3>
-                <p>Pharmacy</p>
-                <button class="card-btn" name="candidate" value="John Doe" onclick="disableButtons(this)">Select</button>
-                    <input type="hidden" name="category" value="Finance">
-            </div>
-            </div>
-        </form>
-        </div>
-    </section>
+    
+            
     </div>
     <script type="text/javascript">
-        
+
         function disableButtons(clickedButton) {
+            
             // Get the form containing the clicked button
             var form = clickedButton.form;
             // Get all buttons in the form
             var buttons = form.getElementsByTagName("button");
+
+             // Get the candidate and category values from the form
+            var candidate = clickedButton.value;
+            var category = form[1].value;
+            console.log(form[1]);
             // Disable all buttons
             for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.add("gray");
                 buttons[i].disabled = true;
             }
+            alert('Your vote for $candidate in the $category category has been recorded.');
+            // Send a POST request to the server with the candidate and category data
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "vote.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(xhr.responseText);
+                }
+            }
+            xhr.send("candidate=" + candidate + "&category=" + category);
         }
     </script>
 </body>
